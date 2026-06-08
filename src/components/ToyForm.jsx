@@ -1,6 +1,35 @@
 import React from "react";
 
-function ToyForm() {
+function ToyForm({ onAddToy}) {
+  const [name, setName] = useState ("");
+  const [image, setImage] = useState("");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    const newToy = {
+      name,
+      image,
+      likes: 0,
+    };
+  
+
+fetch ("http://localhost:3001/toys", {
+  method: "POST",
+  headers: {
+    "Content-Type":"application/json",
+  },
+  body: JSON.stringify(newToy),
+})
+
+.then((res) => res.json())
+.then((createdToy) => res.json())
+onAddToy(createdToy);
+
+setName("")
+setName("")
+};
+}
   return (
     <div className="container">
       <form className="add-toy-form">
@@ -28,6 +57,6 @@ function ToyForm() {
       </form>
     </div>
   );
-}
+
 
 export default ToyForm;
