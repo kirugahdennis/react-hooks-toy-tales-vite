@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 
 function ToyForm({ onAddToy}) {
   const [name, setName] = useState ("");
@@ -23,16 +23,17 @@ fetch ("http://localhost:3001/toys", {
 })
 
 .then((res) => res.json())
-.then((createdToy) => res.json())
+.then((createdToy) => {
 onAddToy(createdToy);
+});
 
-setName("")
-setName("")
+setName("");
+setName("");
 };
-}
+
   return (
     <div className="container">
-      <form className="add-toy-form">
+      <form className="add-toy-form" onSubmit={handleSubmit}>
         <h3>Create a toy!</h3>
         <input
           type="text"
@@ -44,19 +45,24 @@ setName("")
         <input
           type="text"
           name="image"
-          placeholder="Enter a toy's image URL..."
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Enter a toy's image uRL..."
           className="input-text"
         />
         <br />
         <input
-          type="submit"
-          name="submit"
-          value="Create New Toy"
-          className="submit"
+          type="text"
+          name="name"
+          value="name"
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Enter a toy's name..."
+          className="input-text"
         />
       </form>
     </div>
   );
+}
 
 
 export default ToyForm;
